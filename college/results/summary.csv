@@ -1,0 +1,6 @@
+name,hardware,exact,field_acc,json_valid,exact_clean_dev,exact_rep1.0,peak_gb,train_min,error
+R0_repeat,NVIDIA RTX PRO 4000 Blackwell,,,,,,,,ImportError('apply_chat_template requires jinja2>=3.1.6 to be installed. Your version is 3.1.4. You can upgrade it with `pip install -U jinja2`.')
+R0_repeat,NVIDIA RTX PRO 4000 Blackwell,0.89,0.978125,1.0,0.888235294117647,0.905,5.335129261016846,4.722072780132294,
+R0b_seed1,NVIDIA RTX PRO 4000 Blackwell,0.915,0.983125,1.0,0.9176470588235294,0.925,5.348105430603027,4.780028283596039,
+D4_keyorder,NVIDIA RTX PRO 4000 Blackwell,0.875,0.975,1.0,0.8705882352941177,0.89,5.336227893829346,4.728862988948822,
+D3b_5epochs,NVIDIA RTX PRO 4000 Blackwell,0.92,0.985,1.0,0.9176470588235294,0.92,5.380960464477539,7.883312841256459,
