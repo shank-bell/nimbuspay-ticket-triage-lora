@@ -9,6 +9,7 @@
 | File | What |
 |---|---|
 | `notebook.ipynb` | Colab notebook with outputs; runs top to bottom on a fresh T4 (Part A audit and cleaning, B baselines, C pipeline evidence, D experiments from the embedded log (set `RUN_EXPERIMENTS = True` to re-run), E error analysis, final model and test predictions) |
+| `seeds_notebook.ipynb` | seed check (dev only): the final settings re-trained with seeds 1 and 2 on a T4, with outputs; built by `tools/build_seeds_notebook.py`; does not change the submitted adapter or predictions |
 | `report.md` | audit findings, experiment table, error analysis, next steps, AI tools used |
 | `cleaning_log.csv` | `id,action,reason` for all 300 dropped/fixed training rows |
 | `adapter/` | final PEFT adapter (`adapter_config.json` + `adapter_model.safetensors`) |
@@ -24,5 +25,5 @@ Upload the candidate pack to `MyDrive/nimbus/candidate_pack`, open `notebook.ipy
 `predictions_test.jsonl` is the raw output of the final adapter on a fresh Colab T4 (torch 2.14.1+cu130, transformers 5.22.2, peft 0.21.2): base model in fp16 + `PeftModel.from_pretrained("adapter")`, the model's own chat template on `[system, user]` with `add_generation_prompt=True`, `model.generate(do_sample=False, max_new_tokens=200)` at batch size 1, only `.strip()` afterwards. The model's default `generation_config` stays in force, so `repetition_penalty=1.1` (Qwen's default) is active. Stability checks on the 400 test tickets: batch size 16 gives identical text on 400/400; `repetition_penalty=1.0` gives identical text on 388/400 (12 differ). A different GPU, dtype or library version could still change a few outputs; that was not measured.
 
 ## Known limitations
-- The final model is one training seed, and dev has 200 tickets (one ticket = 0.5 points), so 94.0 vs 93.0 is 2 tickets. A seed-to-seed spread of 2.5 points was measured on the non-T4 repeats (3-epoch runs).
+- The submitted adapter is one training seed (seed 0), fixed before two more seeds of the same settings were run on the T4 (dev only): exact match 94.0 / 94.0 / 92.0, mean 93.3, sd 1.15; field accuracy mean 98.75. Dev has 200 tickets (one ticket = 0.5 points), so differences of 1 point are 2 tickets.
 - Five test predictions break SCHEMA.md rules (listed in `report.md`, Section 6). They are left exactly as generated, because post-fixing is not allowed.
