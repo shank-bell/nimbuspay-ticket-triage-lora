@@ -1,13 +1,13 @@
 # Part A – Data audit findings (train.jsonl, 1,445 rows → 1,320 clean rows)
 
 Reproduce: `cd audit` then `uv run --python 3.11 python -X utf8 <script>` for `01_profile.py`, `02_templates.py`, `03_rulecheck.py`,
-`04_category_cv.py` (needs `--with scikit-learn --with numpy`), `05_clean.py`, `06_validate.py`. `lib.py` holds the SCHEMA.md rules.
+`04_category_cv.py` (needs `--with scikit-learn --with numpy`), `05_clean.py`, `06_validate.py`. `nimbus_lib.py` holds the SCHEMA.md rules.
 
 ## Method
 1. **Structural profile** (01): JSON validity, key sets, types, enums, header format, system prompt, ids.
 2. **Template mining** (02): replace digits by `#`, count sentences. The tickets are generated from a fixed phrase inventory
    (amount/date/id/channel/contact/legal/distractor phrases), which made exact extractors possible.
-3. **Rule checker** (03, `lib.py`): re-derive every deterministic field from the ticket text using only SCHEMA.md
+3. **Rule checker** (03, `nimbus_lib.py`): re-derive every deterministic field from the ticket text using only SCHEMA.md
    (amount incl. k/lakh/decimals and distractors; dates incl. relative, no-year; NP ids; channel; Hinglish; legal/contact → priority, needs_human).
 4. **Truth-first comparison**: judge each field against the spec-derived truth, not against the other (possibly corrupted) label fields.
    This localises which column is corrupt (e.g. `needs_human` always matches the derived priority, so `priority` is the bad column).
