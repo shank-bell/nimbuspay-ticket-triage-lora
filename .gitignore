@@ -1,0 +1,13 @@
+# Never push the company's data or model weights (assignment rule)
+training_assessment/
+audit/train_clean.jsonl
+audit/templates.txt
+audit/category_suspects.json
+audit/violations_*.csv
+*.safetensors.base
+__pycache__/
+.venv/
+.ipynb_checkpoints/
+scratch_model/
+college_transfer/
+college_results/
