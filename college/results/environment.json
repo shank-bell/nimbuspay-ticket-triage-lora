@@ -1,0 +1,10 @@
+{
+ "hardware": "NVIDIA RTX PRO 4000 Blackwell",
+ "vram_gb": 23.9,
+ "torch": "2.11.0+cu128",
+ "transformers": "5.22.2",
+ "peft": "0.21.2",
+ "python": "3.12.7",
+ "platform": "Windows-11-10.0.26200-SP0",
+ "note": "NON-T4 run: label as such in the report"
+}
